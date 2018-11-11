@@ -1,2 +1,2 @@
 <?php
-echo "Hello";
+echo 'Requested Url = ' . $_SERVER['REQUEST_URI'];

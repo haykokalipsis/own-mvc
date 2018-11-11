@@ -6,13 +6,17 @@ $router = new Router();
 
 // Add the routes
 $router->add('', ['controller' => 'Home', 'action' => 'index']);
-$router->add('posts', ['controller' => 'Post', 'action' => 'index']);
-$router->add('posts/new', ['controller' => 'Post', 'action' => 'new']);
+//$router->add('posts', ['controller' => 'Post', 'action' => 'index']);
+//$router->add('posts/new', ['controller' => 'Post', 'action' => 'new']);
+$router->add('{controller}/{action}');
+$router->add('admin/{controller}/{action}');
+$router->add('admin/{controller}/{id:\d+}/{action}');
+$router->add('admin/{controller}/{name:[a-z-]+}/{action}');
 
 // Display the Routing table.
-//echo "<pre>";
-//print_r($router->getRoutes() );
-//echo "</pre>";
+echo "<pre>";
+print_r($router->getRoutes() );
+echo "</pre>";
 
 // Match the requested route
 $url = $_SERVER['QUERY_STRING'];

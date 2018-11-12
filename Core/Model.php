@@ -3,6 +3,7 @@
 namespace Core;
 
 use PDO;
+use App\Config;
 
 /**
  * Base model
@@ -22,14 +23,17 @@ abstract class Model
         static $db = null;
 
         if ($db === null) {
-            $host = 'localhost';
-            $dbname = 'test_own-mvc-udemy';
-            $username = 'root';
-            $password = '';
+            //$host = 'localhost';
+            //$dbname = 'mvc';
+            //$username = 'root';
+            //$password = 'secret';
     
             try {
-                $db = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", 
-                              $username, $password);
+                //$db = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8",
+                //              $username, $password);
+                $dsn = 'mysql:host=' . Config::DB_HOST . ';dbname=' . 
+                       Config::DB_NAME . ';charset=utf8';
+                $db = new PDO($dsn, Config::DB_USER, Config::DB_PASSWORD);
 
             } catch (PDOException $e) {
                 echo $e->getMessage();

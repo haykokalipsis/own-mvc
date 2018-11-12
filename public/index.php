@@ -1,9 +1,14 @@
 <?php
+// Autoloader
+spl_autoload_register(function ($class) {
+    $root = dirname(__DIR__);   // get the parent directory
+    $file = $root . '/' . str_replace('\\', '/', $class) . '.php';
+    if (is_readable($file)) {
+        require $root . '/' . str_replace('\\', '/', $class) . '.php';
+    }
+});
 
-require_once '../Core/Router.php';
-require_once '../App/Controllers/Posts.php';
-
-$router = new Router();
+$router = new Core\Router();
 
 // Add the routes
 $router->add('', ['controller' => 'Home', 'action' => 'index']);
@@ -20,8 +25,8 @@ $router->add('admin/{controller}/{name:[a-z-]+}/{action}');
 //echo "</pre>";
 
 // Match the requested route
-$url = $_SERVER['QUERY_STRING'];
 
+// Display route params
 //if ($router->match($url) ) {
 //    echo "<pre>";
 //    print_r($router->getParams() );
@@ -30,4 +35,6 @@ $url = $_SERVER['QUERY_STRING'];
 //    echo "No route found for URL '$url' ";
 //}
 
-$router->dispatch($url);
+
+
+$router->dispatch($_SERVER['QUERY_STRING']);

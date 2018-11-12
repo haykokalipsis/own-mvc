@@ -16,8 +16,9 @@ $router->add('', ['controller' => 'Home', 'action' => 'index']);
 //$router->add('posts/new', ['controller' => 'Post', 'action' => 'new']);
 $router->add('{controller}/{action}');
 $router->add('{controller}/{id:\d+}/{action}');
-$router->add('admin/{controller}/{id:\d+}/{action}');
-$router->add('admin/{controller}/{name:[a-z-]+}/{action}');
+$router->add('admin/{controller}/{action}', ['namespace' => 'Admin']);
+$router->add('admin/{controller}/{id:\d+}/{action}', ['namespace' => 'Admin']);
+$router->add('admin/{controller}/{name:[a-z-]+}/{action}', ['namespace' => 'Admin']);
 
 // Display the Routing table.
 //echo "<pre>";

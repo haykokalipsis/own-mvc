@@ -7,7 +7,7 @@ namespace App\Controllers;
  *
  * PHP version 5.4
  */
-class Posts
+class Posts extends \Core\Controller
 {
 
     /**
@@ -30,5 +30,12 @@ class Posts
     public function addNew()
     {
         echo 'Hello from the addNew action in the Posts controller!';
+    }
+
+    public function edit()
+    {
+        echo "Hello from the edit action in the Posts controller!";
+        echo '<p>Route parameters: <pre>' .
+        htmlspecialchars(print_r($this->route_params, true) ) . '</pre></p>';
     }
 }

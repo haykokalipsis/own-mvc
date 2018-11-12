@@ -15,7 +15,7 @@ $router->add('', ['controller' => 'Home', 'action' => 'index']);
 //$router->add('posts', ['controller' => 'Post', 'action' => 'index']);
 //$router->add('posts/new', ['controller' => 'Post', 'action' => 'new']);
 $router->add('{controller}/{action}');
-$router->add('admin/{controller}/{action}');
+$router->add('{controller}/{id:\d+}/{action}');
 $router->add('admin/{controller}/{id:\d+}/{action}');
 $router->add('admin/{controller}/{name:[a-z-]+}/{action}');
 

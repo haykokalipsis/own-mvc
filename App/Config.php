@@ -38,5 +38,5 @@ class Config
      * Show or hide error messages on screen, depending on development or production environment
      * @var string
      */
-    const SHOW_ERRORS = true;
+    const SHOW_ERRORS = false;
 }

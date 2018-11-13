@@ -18,5 +18,6 @@ $router->add('{controller}/{id:\d+}/{action}');
 $router->add('admin/{controller}/{action}', ['namespace' => 'Admin']);
 $router->add('admin/{controller}/{id:\d+}/{action}', ['namespace' => 'Admin']);
 $router->add('admin/{controller}/{name:[a-z-]+}/{action}', ['namespace' => 'Admin']);
+$router->add('auth/{controller}/{action}', ['namespace' => 'Auth']);
 
 $router->dispatch($_SERVER['QUERY_STRING']);

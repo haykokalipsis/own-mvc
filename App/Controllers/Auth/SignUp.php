@@ -21,10 +21,20 @@ class SignUp extends \Core\Controller
     public function store()
     {
         $user = new User($_POST);
-        $signed = $user->store();
+        if($user->store() ) {
+            header('Lcation: http://' . $_SERVER['HTTP_HOST'] . '/Auth/sign-up/success',true, 303);
+			exit;
+            // recommended redirect method
+        } else {
+            View::renderTemplate('Auth/sign-up.twig',[
+                'user' => $user
+            ]);
+        }
 
-        View::renderTemplate('Home/index.twig', [
-            'signed' => $signed
-        ]);
-    } 
+    }
+
+    public function successAction()
+    {
+        View::renderTemplate('Auth/success.twig');
+    }
 }

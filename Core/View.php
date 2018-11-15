@@ -11,7 +11,7 @@ class View
 //    {
 //        extract($args, EXTR_SKIP);
 //
-//        $file = "../App/Views/$view"; // relative to Core dorectory
+//        $file = "../App/Views/$view"; // relative to Core directory
 //
 //        if(is_readable($file) )
 //            require $file;

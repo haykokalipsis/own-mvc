@@ -8,6 +8,10 @@
 <p>Hello from a Twig template, {{ name }}!</p>
 
 <ul>
+    {% if signed %}
+        {{ signed }}
+    {% endif %}
+
     {% for colour in colours %}
     <li>{{ colour }}</li>
     {% endfor %}

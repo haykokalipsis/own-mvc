@@ -8,6 +8,7 @@
 
 namespace App\Controllers\Auth;
 
+use App\Models\User;
 use \Core\View;
 
 class SignUp extends \Core\Controller
@@ -16,4 +17,14 @@ class SignUp extends \Core\Controller
     {
         View::renderTemplate('Auth/sign-up.twig');
     }
+    
+    public function store()
+    {
+        $user = new User($_POST);
+        $signed = $user->store();
+
+        View::renderTemplate('Home/index.twig', [
+            'signed' => $signed
+        ]);
+    } 
 }

@@ -3,5 +3,31 @@
 {%  block title %}Sign Up{% endblock %}
 
 {% block body %}
+
     <h1>Sign Up</h1>
+
+    <form action="/auth/sign-up/store" method="post">
+        <div>
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" placeholder="Name" autofocus>
+        </div>
+
+        <div>
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" placeholder="Email">
+        </div>
+
+        <div>
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" placeholder="Password">
+        </div>
+
+        <div>
+            <label for="passwordConfirmation">Password</label>
+            <input type="password" name="passwordConfirmation" id="passwordConfirmation" placeholder="Password">
+        </div>
+
+        <input type="submit" name="" id="" value="Submit">
+    </form>
+
 {% endblock %}

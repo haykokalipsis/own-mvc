@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <nav>
@@ -11,6 +12,12 @@
         <a href="/register/create"> Sign up</a>
         <a href="/login">Login</a>
     </nav>
+
+    {% for message in flash_messages %}
+        <div class="alert alert-{{ message.type }}">
+            {{ message.body }}
+        </div>
+    {% endfor %}
 
     {% block body %}
     {% endblock %}

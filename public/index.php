@@ -30,5 +30,6 @@ $router->add('register/store', ['controller' => 'Register', 'action' => 'store',
 $router->add('login', ['controller' => 'login', 'action' => 'create', 'namespace' => 'Auth']);
 $router->add('login/attempt', ['controller' => 'login', 'action' => 'attempt', 'namespace' => 'Auth']);
 $router->add('logout', ['controller' => 'login', 'action' => 'logout', 'namespace' => 'Auth']);
+$router->add('logout/show-logout-message', ['controller' => 'login', 'action' => 'show-logout-message', 'namespace' => 'Auth']);
 
 $router->dispatch($_SERVER['QUERY_STRING']);

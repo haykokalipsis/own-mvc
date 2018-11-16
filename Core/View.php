@@ -31,6 +31,7 @@ class View
 //            $twig->addGlobal('session', $_SESSION);
 //            $twig->addGlobal('is_logged_in',\App\Auth::isLoggedIn() );
             $twig->addGlobal('current_user',\App\Auth::getUser() );
+            $twig->addGlobal('flash_messages',\App\Flash::getMessages() );
         }
 
         try {

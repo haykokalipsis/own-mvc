@@ -22,7 +22,7 @@ class SignUp extends \Core\Controller
     {
         $user = new User($_POST);
         if($user->store() ) {
-            header('Lcation: http://' . $_SERVER['HTTP_HOST'] . '/Auth/sign-up/success',true, 303);
+            header('Location: http://' . $_SERVER['HTTP_HOST'] . '/Auth/sign-up/success',true, 303);
 			exit;
             // recommended redirect method
         } else {
@@ -36,5 +36,12 @@ class SignUp extends \Core\Controller
     public function successAction()
     {
         View::renderTemplate('Auth/success.twig');
+    }
+
+    public function validateEmailAction()
+    {
+        $is_valid = ! User::emailExists($_GET['email']);
+        header('Content-Type: application/json');
+        echo json_encode($is_valid);
     }
 }

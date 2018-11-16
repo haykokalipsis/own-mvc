@@ -18,13 +18,14 @@ class Posts extends \Core\Controller
      *
      * @return void
      */
+    public function before()
+    {
+        $this->requireLogin();
+    }
+
     public function indexAction()
     {
-        if( ! Auth::isLoggedIn() ) {
-            Auth::rememberRequestedPage();
-            $this->redirect('/login');
-        }
-
+//        $this->requireLogin();
         $posts = Post::getAll();
 
         View::renderTemplate('Posts/index.twig', [

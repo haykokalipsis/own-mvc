@@ -11,22 +11,22 @@ namespace App\Controllers\Auth;
 use App\Models\User;
 use \Core\View;
 
-class SignUp extends \Core\Controller
+class Register extends \Core\Controller
 {
     public function createAction()
     {
-        View::renderTemplate('Auth/sign-up.twig');
+        View::renderTemplate('Auth/register.twig');
     }
     
     public function store()
     {
         $user = new User($_POST);
         if($user->store() ) {
-            header('Location: http://' . $_SERVER['HTTP_HOST'] . '/Auth/sign-up/success',true, 303);
+            header('Location: http://' . $_SERVER['HTTP_HOST'] . '/Auth/register/success',true, 303);
 			exit;
             // recommended redirect method
         } else {
-            View::renderTemplate('Auth/sign-up.twig',[
+            View::renderTemplate('Auth/register.twig',[
                 'user' => $user
             ]);
         }

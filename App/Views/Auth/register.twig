@@ -27,7 +27,7 @@
                      email: {
                          required: true,
                          email: true,
-                         remote: '/Auth/register/validate-email'
+                         remote: '/validate-email'
                      },
                      password: {
                          required: true,
@@ -61,7 +61,7 @@
         </ul>
     {% endif %}
 
-    <form id="formSignup" action="/auth/register/store" method="post">
+    <form id="formSignup" action="/register/store" method="post">
         <div>
             <label for="name">Name</label>
             <input type="text" name="name" id="name" placeholder="Name" autofocus value="{{ user.name }}">

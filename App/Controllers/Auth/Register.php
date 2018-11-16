@@ -22,8 +22,7 @@ class Register extends \Core\Controller
     {
         $user = new User($_POST);
         if($user->store() ) {
-            header('Location: http://' . $_SERVER['HTTP_HOST'] . '/Auth/register/success',true, 303);
-			exit;
+            $this->redirect('/');
             // recommended redirect method
         } else {
             View::renderTemplate('Auth/register.twig',[

@@ -4,17 +4,19 @@
 
 {% block body %}
 
-<h1>Welcome</h1>
-<p>Hello from a Twig template, {{ name }}!</p>
+    <h1>Welcome</h1>
 
-<ul>
-    {% if signed %}
-        {{ signed }}
-    {% endif %}
+    {#<?php if(isset($_SESSION['user_id']): ?>#}
+        {#User with id <?php echo $_SESSION['user_id']; ?> is logged in#}
+    {#<?php else: ?>#}
+        {#<a href="login">Sign in</a> or <a href="/register/create">Sign up</a>#}
+    {#<?php endif; ?>#}
 
-    {% for colour in colours %}
-    <li>{{ colour }}</li>
-    {% endfor %}
-</ul>
+{% if session.user_id %}
+    User with id <?php echo $_SESSION['user_id']; ?> is logged in
+    <a href="logout">Sign out</a>
+{% else %}
+    <a href="login">Sign in</a> or <a href="/register/create">Sign up</a>
+{% endif %}
 
 {% endblock %}

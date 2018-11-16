@@ -21,7 +21,7 @@ class Posts extends \Core\Controller
     {
         $posts = Post::getAll();
 
-        View::renderTemplate('Posts/index.html', [
+        View::renderTemplate('Posts/index.twig', [
             'posts' => $posts
         ]);
     }

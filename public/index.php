@@ -7,17 +7,28 @@ error_reporting(E_ALL);
 set_error_handler('Core\Error::errorhandler');
 set_exception_handler('Core\Error::exceptionHandler');
 
+session_start();
+
 // Router
 $router = new Core\Router();
 
 $router->add('', ['controller' => 'Home', 'action' => 'index']);
 //$router->add('posts', ['controller' => 'Post', 'action' => 'index']);
 //$router->add('posts/new', ['controller' => 'Post', 'action' => 'new']);
-$router->add('{controller}/{action}');
-$router->add('{controller}/{id:\d+}/{action}');
-$router->add('admin/{controller}/{action}', ['namespace' => 'Admin']);
-$router->add('admin/{controller}/{id:\d+}/{action}', ['namespace' => 'Admin']);
-$router->add('admin/{controller}/{name:[a-z-]+}/{action}', ['namespace' => 'Admin']);
-$router->add('auth/{controller}/{action}', ['namespace' => 'Auth']);
+//$router->add('{controller}/{action}');
+//$router->add('{controller}/{id:\d+}/{action}');
+
+//$router->add('admin/{controller}/{action}', ['namespace' => 'Admin']);
+//$router->add('admin/{controller}/{id:\d+}/{action}', ['namespace' => 'Admin']);
+//$router->add('admin/{controller}/{name:[a-z-]+}/{action}', ['namespace' => 'Admin']);
+//$router->add('auth/{controller}/{action}', ['namespace' => 'Auth']);
+
+$router->add('posts', ['controller' => 'Posts', 'action' => 'index']);
+$router->add('validate-email', ['controller' => 'Register', 'action' => 'validate-email', 'namespace' => 'Auth']);
+$router->add('register/create', ['controller' => 'Register', 'action' => 'create', 'namespace' => 'Auth']);
+$router->add('register/store', ['controller' => 'Register', 'action' => 'store', 'namespace' => 'Auth']);
+$router->add('login', ['controller' => 'login', 'action' => 'create', 'namespace' => 'Auth']);
+$router->add('login/attempt', ['controller' => 'login', 'action' => 'attempt', 'namespace' => 'Auth']);
+$router->add('logout', ['controller' => 'login', 'action' => 'logout', 'namespace' => 'Auth']);
 
 $router->dispatch($_SERVER['QUERY_STRING']);

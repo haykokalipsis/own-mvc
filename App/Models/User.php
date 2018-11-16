@@ -8,7 +8,8 @@ class User extends \Core\Model
 {
     public $errors = [];
 
-    public function __construct($data)
+    // We are creating a user dynamically for pdo fetch mode class, in findbyemail method
+    public function __construct($data = [])
     {
         foreach($data as $key => $value) {
             $this->$key = $value;
@@ -70,8 +71,8 @@ class User extends \Core\Model
             $this->errors[] = 'Password needs at least one number';
         }
     }
-
-    public static function emailExists($email)
+    
+    public static function findByEmail($email)
     {
         $sql = "SELECT * FROM users WHERE email = :email";
 
@@ -79,8 +80,28 @@ class User extends \Core\Model
         $stmt = $db->prepare($sql);
         $stmt->bindParam(':email', $email, PDO::PARAM_STR);
 
+        $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class() );
+
         $stmt->execute();
 
-        return $stmt->fetch() !== false;
+        return $stmt->fetch();
+    } 
+
+    public static function emailExists($email)
+    {
+        return static::findByEmail($email) !== false;
+    }
+
+    public static function authenticate($email, $password)
+    {
+        $user = static::findByEmail($email);
+
+        if($user) {
+            if(password_verify($password, $user->password) ) {
+                return $user;
+            }
+        }
+
+        return false;
     }
 }

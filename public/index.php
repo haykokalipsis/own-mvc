@@ -31,5 +31,7 @@ $router->add('login', ['controller' => 'login', 'action' => 'create', 'namespace
 $router->add('login/attempt', ['controller' => 'login', 'action' => 'attempt', 'namespace' => 'Auth']);
 $router->add('logout', ['controller' => 'login', 'action' => 'logout', 'namespace' => 'Auth']);
 $router->add('logout/show-logout-message', ['controller' => 'login', 'action' => 'show-logout-message', 'namespace' => 'Auth']);
+$router->add('password/forgot', ['controller' => 'Password', 'action' => 'forgot']);
+$router->add('password/request-reset', ['controller' => 'Password', 'action' => 'request-reset']);
 
 $router->dispatch($_SERVER['QUERY_STRING']);

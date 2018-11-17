@@ -23,6 +23,11 @@ class View
 
     public static function renderTemplate($template, $args = [])
     {
+        echo static::getTemplate($template, $args);
+    }
+
+    public static function getTemplate($template, $args = [])
+    {
         static $twig = null;
 
         if ($twig === null) {
@@ -34,11 +39,7 @@ class View
             $twig->addGlobal('flash_messages',\App\Flash::getMessages() );
         }
 
-        try {
-            echo $twig->render($template, $args);
-        } catch (\Twig_Error_Loader $e) {
-        } catch (\Twig_Error_Runtime $e) {
-        } catch (\Twig_Error_Syntax $e) {
-        }
+        return $twig->render($template, $args);
+
     }
 }

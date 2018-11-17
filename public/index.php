@@ -25,13 +25,18 @@ $router->add('', ['controller' => 'Home', 'action' => 'index']);
 
 $router->add('posts', ['controller' => 'Posts', 'action' => 'index']);
 $router->add('validate-email', ['controller' => 'Register', 'action' => 'validate-email', 'namespace' => 'Auth']);
+
 $router->add('register/create', ['controller' => 'Register', 'action' => 'create', 'namespace' => 'Auth']);
 $router->add('register/store', ['controller' => 'Register', 'action' => 'store', 'namespace' => 'Auth']);
+
 $router->add('login', ['controller' => 'login', 'action' => 'create', 'namespace' => 'Auth']);
 $router->add('login/attempt', ['controller' => 'login', 'action' => 'attempt', 'namespace' => 'Auth']);
 $router->add('logout', ['controller' => 'login', 'action' => 'logout', 'namespace' => 'Auth']);
 $router->add('logout/show-logout-message', ['controller' => 'login', 'action' => 'show-logout-message', 'namespace' => 'Auth']);
+
 $router->add('password/forgot', ['controller' => 'Password', 'action' => 'forgot']);
 $router->add('password/request-reset', ['controller' => 'Password', 'action' => 'request-reset']);
+$router->add('password/reset/{token:[\da-f]+}', ['controller' => 'Password', 'action' => 'reset']);
+$router->add('password/reset-password', ['controller' => 'Password', 'action' => 'reset-password']);
 
 $router->dispatch($_SERVER['QUERY_STRING']);

@@ -7,10 +7,15 @@
 </head>
 <body>
     <nav>
-        <a href="/">Home</a> |
-        <a href="/posts">Posts</a>
-        <a href="/register/create"> Sign up</a>
-        <a href="/login">Login</a>
+        <ul>
+            <li><a href="/">Home</a></li>
+            {% if current_user %}
+                <li><a href="/profile/show">Profile</a></li>
+                <li><a href="/logout">Sign out</a></li>
+            {#{% else %}#}
+                {#<a href="login">Sign in</a> or <a href="/register/create">Sign up</a>#}
+            {% endif %}
+        </ul>
     </nav>
 
     {% for message in flash_messages %}

@@ -58,25 +58,27 @@ class User extends \Core\Model
             $this->errors[] = 'Invalid email';
         }
 
-        if(static::emailExists($this->email) ) {
+        if(static::emailExists($this->email, $this->id ?? null) ) {
             $this->errors[] = 'email already taken';
         }
 
         // Password
-        if ($this->password != $this->passwordConfirmation) {
-            $this->errors[] = 'Password must match confirmation';
-        }
+        if(isset($this->password) && isset($this->passwordConfirmation) ) {
+            if ($this->password != $this->passwordConfirmation) {
+                $this->errors[] = 'Password must match confirmation';
+            }
 
-        if (strlen($this->password) < 6) {
-            $this->errors[] = 'Please enter at least 6 characters for the password';
-        }
+            if (strlen($this->password) < 6) {
+                $this->errors[] = 'Please enter at least 6 characters for the password';
+            }
 
-        if (preg_match('/.*[a-z]+.*/i', $this->password) == 0) {
-            $this->errors[] = 'Password needs at least one letter';
-        }
+            if (preg_match('/.*[a-z]+.*/i', $this->password) == 0) {
+                $this->errors[] = 'Password needs at least one letter';
+            }
 
-        if (preg_match('/.*\d+.*/i', $this->password) == 0) {
-            $this->errors[] = 'Password needs at least one number';
+            if (preg_match('/.*\d+.*/i', $this->password) == 0) {
+                $this->errors[] = 'Password needs at least one number';
+            }
         }
     }
     
@@ -95,9 +97,15 @@ class User extends \Core\Model
         return $stmt->fetch();
     } 
 
-    public static function emailExists($email)
+    public static function emailExists($email, $ignore_id = null)
     {
-        return static::findByEmail($email) !== false;
+        $user = static::findByEmail($email);
+
+        if($user)
+            if($user->id != $ignore_id)
+                return true;
+
+        return false;
     }
 
     public static function authenticate($email, $password)
@@ -296,5 +304,49 @@ class User extends \Core\Model
         $stmt->bindValue(':hashed_token', $hashed_token, PDO::PARAM_STR);
 
         $stmt->execute();
-    } 
+    }
+
+    public function updateProfile($data)
+    {
+        $this->name = $data['name'];
+        $this->email = $data['email'];
+//        $this->passwordConfirmation = $data['passwordConfirmation'];
+
+        if($data['password'] != '')
+            $this->password = $data['password'];
+
+        if($data['passwordConfirmation'] != '')
+            $this->passwordConfirmation = $data['passwordConfirmation'];
+
+        $this->validate();
+
+        if(empty($this->errors) ) {
+            $password_hash = password_hash($this->password, PASSWORD_DEFAULT);
+
+            $sql = "UPDATE users 
+                    SET name = :name, 
+                        email = :email";
+
+            // Add password if it is set
+            if(isset($this->password))
+                $sql.= ', password = :password_hash';
+
+            $sql.= "\nWHERE id = :id";
+
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+
+            $stmt->bindValue(':name', $this->name, PDO::PARAM_STR);
+            $stmt->bindValue(':email', $this->email, PDO::PARAM_STR);
+            $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
+            if(isset($this->password) ) {
+                $password_hash = password_hash($this->password, PASSWORD_DEFAULT);
+                $stmt->bindValue(':password_hash', $password_hash, PDO::PARAM_STR);
+            }
+
+            return $stmt->execute();
+        }
+
+        return false;
+    }
 }

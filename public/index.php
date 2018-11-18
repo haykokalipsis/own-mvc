@@ -42,4 +42,8 @@ $router->add('password/request-reset', ['controller' => 'Password', 'action' => 
 $router->add('password/reset/{token:[\da-f]+}', ['controller' => 'Password', 'action' => 'reset']);
 $router->add('password/reset-password', ['controller' => 'Password', 'action' => 'reset-password']);
 
+$router->add('profile/show', ['controller' => 'Profile', 'action' => 'show']);
+$router->add('profile/edit', ['controller' => 'Profile', 'action' => 'edit']);
+$router->add('profile/update', ['controller' => 'Profile', 'action' => 'update']);
+
 $router->dispatch($_SERVER['QUERY_STRING']);

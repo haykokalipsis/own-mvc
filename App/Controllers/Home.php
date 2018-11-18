@@ -21,11 +21,11 @@ class Home extends \Core\Controller
 
     public function before()
     {
-        echo '(Before)';
+//        echo '(Before)';
     }
 
     public function after()
     {
-        echo '(After)';
+//        echo '(After)';
     }
 }

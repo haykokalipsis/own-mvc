@@ -22,7 +22,8 @@ class Register extends \Core\Controller
     {
         $user = new User($_POST);
         if($user->store() ) {
-            $this->redirect('/');
+            $user->sendActivationEmail();
+            $this->redirect('/register/success');;
             // recommended redirect method
         } else {
             View::renderTemplate('Auth/register.twig',[
@@ -42,5 +43,16 @@ class Register extends \Core\Controller
         $is_valid = ! User::emailExists($_GET['email']);
         header('Content-Type: application/json');
         echo json_encode($is_valid);
+    }
+
+    public function activateAction()
+    {
+        User::activate($this->route_params['token']);
+        $this->redirect('/register/activated');
+    }
+
+    public function activatedAction()
+    {
+        View::renderTemplate('Auth/activated.twig');
     }
 }

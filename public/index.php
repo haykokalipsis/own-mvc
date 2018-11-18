@@ -28,6 +28,9 @@ $router->add('validate-email', ['controller' => 'Register', 'action' => 'validat
 
 $router->add('register/create', ['controller' => 'Register', 'action' => 'create', 'namespace' => 'Auth']);
 $router->add('register/store', ['controller' => 'Register', 'action' => 'store', 'namespace' => 'Auth']);
+$router->add('register/success', ['controller' => 'Register', 'action' => 'success', 'namespace' => 'Auth']);
+$router->add('register/activated', ['controller' => 'Register', 'action' => 'activated', 'namespace' => 'Auth']);
+$router->add('register/activate/{token:[\da-f]+}', ['controller' => 'Register', 'action' => 'activate', 'namespace' => 'Auth']);
 
 $router->add('login', ['controller' => 'login', 'action' => 'create', 'namespace' => 'Auth']);
 $router->add('login/attempt', ['controller' => 'login', 'action' => 'attempt', 'namespace' => 'Auth']);
